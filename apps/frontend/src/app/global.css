@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@config '../../tailwind.config.ts';
+
+:root {
+  color-scheme: light;
+  background-color: theme('colors.neutral.50');
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  @apply bg-neutral-50 text-slate-900 font-display antialiased;
+}
+
+a {
+  @apply text-brand transition-colors duration-150 hover:text-brand-dark;
+}
+
+.surface-card {
+  @apply rounded-3xl bg-white/85;
+}

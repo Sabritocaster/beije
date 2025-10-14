@@ -1,0 +1,67 @@
+{
+  "name": "frontend",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/frontend/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/next:build",
+      "outputs": ["{workspaceRoot}/dist/apps/frontend"],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/apps/frontend"
+      },
+      "configurations": {
+        "development": {
+          "outputPath": "dist/apps/frontend",
+          "buildLibsFromSource": true
+        },
+        "production": {
+          "outputPath": "dist/apps/frontend",
+          "buildLibsFromSource": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/next:server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "frontend:build",
+        "dev": true,
+        "port": 4200
+      },
+      "configurations": {
+        "development": {
+          "dev": true,
+          "buildTarget": "frontend:build:development",
+          "port": 4200
+        },
+        "production": {
+          "dev": false,
+          "buildTarget": "frontend:build:production"
+        }
+      }
+    },
+    "export": {
+      "executor": "@nx/next:export",
+      "options": {
+        "buildTarget": "frontend:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/frontend/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/apps/frontend"],
+      "options": {
+        "jestConfig": "apps/frontend/jest.config.ts"
+      }
+    }
+  }
+}
